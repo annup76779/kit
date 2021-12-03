@@ -9,8 +9,15 @@ void whois(){
     printf("Section: B\n");
     printf("Group: G2\n");
     printf("------------------------------------------");
-    printf("\nProgram Name: Intersection of two sets.\n");
+    printf("\nProgram Name: Union of two sets.\n");
     printf("*******************************************\n");
+}
+
+// take an int type array of size given by the user
+void take_array(int arr[], int size){
+    printf("Please enter the following %d elements of the set:\n", size);
+    for (int x=0; x<size; x++)
+        scanf("%d",&arr[x]);
 }
 
 // function to check if any value is present in the given set or not
@@ -22,24 +29,19 @@ int value_in(int value, int set[], int current_index){
     return 0;
 }
 
-// take an int type array of size given by the user
-void take_array(int arr[], int size){
-    printf("Please enter the following %d elements of the set:\n", size);
-    for (int x=0; x<size; x++)
-        scanf("%d",&arr[x]);
-}
-
-// function to get the intersection of the two sets
-int get_intersection(int setA[], int setB[], int final_set[], int lenA, int lenB, int final_set_length){
+// function to get the union of the two sets
+int doUnion(int setA[], int setB[], int final_set[], int lenA, int lenB, int final_set_length){
     int final_set_index = 0;
     for (int i = 0; i < lenA; i++) {
-        for (int j = 0; j < lenB; j++){
-            if (setA[i] == setB[j]){
-                if (!value_in(setA[i], final_set, final_set_index)){
-                    final_set[final_set_index] = setA[i];
-                    final_set_index++;
-                } 
-            }
+        if (!value_in(setA[i], final_set, final_set_length)){
+            final_set[final_set_index] = setA[i];
+            final_set_index++;
+        }
+    }
+    for (int j = 0; j < lenB; j++){
+        if (!value_in(setB[j], final_set, final_set_index)){
+            final_set[final_set_index] = setB[j];
+            final_set_index++;
         }
     }
     return final_set_index;
@@ -60,19 +62,20 @@ void main(){
     int setA[lenA];take_array(setA, lenA);
     int setB[lenB];take_array(setB, lenB);
 
-    int interset_set_length = (lenA <= lenB) ? lenA : lenB;
-    int intersection[interset_set_length];
-    int len = get_intersection(setA, setB, intersection, lenA, lenB, interset_set_length);
+    int interset_set_length = lenA + lenB;
+    int diff_[interset_set_length];
+    int final_set_size;
+    final_set_size = doUnion(setA, setB, diff_, lenA, lenB, interset_set_length);
 
     printf("Set A -\n");
     for (int x = 0; x < lenA; x++) printf("%d ", setA[x]);
     printf("\nSet B -\n");
     for (int y = 0; y < lenB; y++) printf("%d ", setB[y]);
 
-    printf("\nFinal Set after intersection:\n");
-    for (int i = 0; i < len; i++){
-        if (intersection[i])
-            printf("%d ", intersection[i]);
+    printf("\nFinal Set after union:\n");
+    for (int i = 0; i < final_set_size; i++){
+        if (diff_[i])
+            printf("%d ", diff_[i]);
     }
     getch();
-}
+} 
