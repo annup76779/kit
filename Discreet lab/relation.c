@@ -1,13 +1,47 @@
 #include<stdio.h>
 #include<conio.h>
 
-void main(){
-    int setA[] = {1,2,3,4};
-    int setB[] = {98, 6, 54, 23};
+void whois(){
+    printf("Name: Anurag Pandey\n");
+    printf("Roll no. : 21165BTLCS010\n");
+    printf("Branch: CSE\n");
+    printf("Year: 2nd\n");
+    printf("Section: B\n");
+    printf("Group: G2\n");
+    printf("------------------------------------------\n");
+    printf("\nProgram Name: Cartesian product of two sets.\n");
+    printf("*******************************************\n");
+}
 
-    // finding the length of the given two sets
-    int lenA = sizeof(setA)/sizeof(setA[0]);
-    int lenB = sizeof(setB)/sizeof(setB[0]);
+// take an int type array of size given by the user
+void take_array(int arr[], int size){
+    printf("Please enter the following %d elements of the set:\n", size);
+    for (int x=0; x<size; x++)
+        scanf("%d",&arr[x]);
+}
+
+// function to check if any value is present in the given set or not
+int value_in(int value, int set[], int current_index){
+    for (int x = 0; x < current_index; x++){
+        if (value == set[x])
+            return 1;
+    }
+    return 0;
+}
+
+void main(){
+    whois();
+
+    //taking the size of each array from the user
+    int lenA, lenB;
+    printf("Enter the size of set A: ");
+    scanf("%d", &lenA);
+    printf("Enter the size of set B: ");
+    scanf("%d",&lenB);
+
+    // making two sets
+    int setA[lenA];take_array(setA, lenA);
+    int setB[lenB];take_array(setB, lenB);
 
     int cols = lenA * lenB;
     // final set dimensions
@@ -25,22 +59,13 @@ void main(){
     }
 
     // printing the output
-    printf("Name: Awantika Yadav\n");
-    printf("Roll no. : 21165BTLCS013\n");
-    printf("Year: 2nd\n");
-    printf("Section: B\n");
-    printf("Group: G2\n");
-    printf("------------------------------------------\n");
-    printf("\nProgram Name: Relation of two sets.\n");
-    printf("*******************************************\n");
-
     printf("Set A -\n");
     for (int x = 0; x < lenA; x++) printf("%d ", setA[x]);
     printf("\nSet B -\n");
     for (int y = 0; y < lenB; y++) printf("%d ", setB[y]);
 
-    //printing the relation set
-    printf("\nFinal Relation Set after union:\n");
+    //printing the Cartesian product set
+    printf("\nFinal Set after Cartesian product:\n");
     printf("{");
     for (int i=0; i<cols; i++){
         printf("(");
